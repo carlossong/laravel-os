@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CalenderController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ServiceOrderController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,7 @@ Route::get('/dashboard', function () {
 
 Route::resource('os', ServiceOrderController::class)->middleware('auth');
 Route::resource('cliente', ClientController::class)->middleware('auth');
+Route::resource('services', ServiceController::class)->middleware('auth');
 
 Route::get('calendar-event', [CalenderController::class, 'index']);
 Route::post('calendar-crud-ajax', [CalenderController::class, 'calendarEvents']);

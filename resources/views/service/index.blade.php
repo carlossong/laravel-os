@@ -1,52 +1,38 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Ordem de Serviço') }}
+            {{ __('Serviços') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <!--Container-->
                     <div class="w-full mx-auto px-2">
 
                         <!--Card-->
-                        <div id='recipients' class="w-full p-8 mt-6 lg:mt-0 rounded shadow bg-white">
-                            <table id="example" class="stripe hover p-2 w-full text-center">
+                        <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
+
+
+                            <table id="example" class="stripe hover text-center" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                                 <thead>
                                 <tr>
-                                    <th data-priority="1">Cliente</th>
-                                    <th data-priority="2">O.S</th>
-                                    <th data-priority="3">Responsável</th>
-                                    <th data-priority="4">Início</th>
-                                    <th data-priority="5">Término</th>
-                                    <th data-priority="5">Status</th>
-                                    <th data-priority="6">Valor Total</th>
-                                    <th data-priority="6">Valor Faturado</th>
-                                    <th data-priority="6">Ações</th>
+                                    <th data-priority="1">Código</th>
+                                    <th data-priority="2">Nome</th>
+                                    <th data-priority="3">Descrição</th>
+                                    <th data-priority="4">Valor</th>
+                                    <th data-priority="5">Ações</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td>Bills Services e Network</td>
-                                    <td>0714</td>
-                                    <td>Jorge Lima</td>
-                                    <td>28/06/2021 10:00</td>
-                                    <td>28/06/2021 10:00</td>
-                                    <td>Fechada</td>
-                                    <td>R$380,00</td>
-                                    <td>R$380,00</td>
-                                    <td>
-                                        <form action="" method="POST" id="delete" class="flex-auto">
-                                            <a title="Editar" class="text-gray-600 text-2xl icon-pencil-square-o" href="" target="_blank"></a>
-
-                                            <a title="Excluir" href="#" class="text-red-600 text-2xl icon-trash-o" onclick="deleteConfirm('delele')"></a>
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
-                                    </td>
+                                    <td>252</td>
+                                    <td>Suporte Remoto</td>
+                                    <td>Assistencia remota</td>
+                                    <td>R$ 80,00</td>
+                                    <td>Editar</td>
                                 </tr>
                                 </tbody>
 

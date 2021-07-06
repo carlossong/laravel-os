@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="widget-box">
-                        <div class="container mt-5" style="max-width: 700px">
+                        <div class="container mt-5">
                             <div id='full_calendar_events'></div>
                         </div>
 
@@ -33,7 +33,8 @@
 
                                 var calendar = $('#full_calendar_events').fullCalendar({
                                     editable: true,
-                                    editable: true,
+                                    navLinks: true,
+                                    locale: 'pt-br',
                                     events: SITEURL + "/calendar-event",
                                     displayEventTime: true,
                                     eventRender: function (event, element, view) {
