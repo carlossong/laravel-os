@@ -70,7 +70,7 @@
                             <x-dropdown-link :href="route('logout')"
                                              onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                <span class="icon-sign-out align-middle"></span>{{ __(' Sair') }}
+                                <span class="icon-logout align-middle"></span>{{ __(' Sair') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>

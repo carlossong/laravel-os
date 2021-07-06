@@ -10,8 +10,13 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="widget-box">
-                        <div class="container mt-5">
-                            <div id='full_calendar_events'></div>
+                        <div class="container">
+                            <a href="{{ route('os.create') }}" class="icon-plus inline-flex items-center h-8 px-4 m-2 text-sm text-green-100 transition-colors duration-150 bg-green-700 rounded-lg focus:shadow-outline hover:bg-green-800">Nova O.S</a>
+                            <a href="#" class="icon-plus inline-flex items-center h-8 px-4 m-2 text-sm text-blue-100 transition-colors duration-150 bg-blue-700 rounded-lg focus:shadow-outline hover:bg-blue-800">Cliente</a>
+                            <a href="#" class="icon-plus inline-flex items-center h-8 px-4 m-2 text-sm text-gray-100 transition-colors duration-150 bg-gray-700 rounded-lg focus:shadow-outline hover:bg-gray-800">Serviço</a>
+                            <div id='full_calendar_events' data-route-load-events="{{ route('routeLoadEvents') }}">
+
+                            </div>
                         </div>
 
                         {{-- Scripts --}}
@@ -19,6 +24,12 @@
                         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
                         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
                         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+                        <script>
+                            function routeEvents(route) {
+                                return document.getElementById('full_calendar_events').dataset[route];
+                            }
+                        </script>
 
                         <script>
                             $(document).ready(function () {
@@ -35,8 +46,7 @@
                                     editable: true,
                                     navLinks: true,
                                     locale: 'pt-br',
-                                    events: SITEURL + "/calendar-event",
-                                    displayEventTime: true,
+                                    events: routeEvents('routeLoadEvents'),
                                     eventRender: function (event, element, view) {
                                         if (event.allDay === 'true') {
                                             event.allDay = true;
@@ -46,17 +56,17 @@
                                     },
                                     selectable: true,
                                     selectHelper: true,
-                                    select: function (event_start, event_end, allDay) {
-                                        var event_name = prompt('Event Name:');
-                                        if (event_name) {
-                                            var event_start = $.fullCalendar.formatDate(event_start, "Y-MM-DD HH:mm:ss");
-                                            var event_end = $.fullCalendar.formatDate(event_end, "Y-MM-DD HH:mm:ss");
+                                    select: function (start, end, allDay) {
+                                        var client_id = prompt('Event Name:');
+                                        if (client_id) {
+                                            var start = $.fullCalendar.formatDate(event_start, "Y-MM-DD HH:mm:ss");
+                                            var end = $.fullCalendar.formatDate(event_end, "Y-MM-DD HH:mm:ss");
                                             $.ajax({
                                                 url: SITEURL + "/calendar-crud-ajax",
                                                 data: {
-                                                    event_name: event_name,
-                                                    event_start: event_start,
-                                                    event_end: event_end,
+                                                    client_id: client_id,
+                                                    start: start,
+                                                    end: end,
                                                     type: 'create'
                                                 },
                                                 type: "POST",
@@ -65,9 +75,9 @@
 
                                                     calendar.fullCalendar('renderEvent', {
                                                         id: data.id,
-                                                        title: event_name,
-                                                        start: event_start,
-                                                        end: event_end,
+                                                        client_id: client_id,
+                                                        start: start,
+                                                        end: end,
                                                         allDay: allDay
                                                     }, true);
                                                     calendar.fullCalendar('unselect');
@@ -119,6 +129,7 @@
                             }
 
                         </script>
+
 
                     </div>
                 </div>

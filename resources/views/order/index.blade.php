@@ -11,7 +11,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <!--Container-->
                     <div class="w-full mx-auto px-2">
-
+                        <a href="{{ route('os.create') }}" class="icon-plus inline-flex items-center h-8 px-4 m-2 text-sm text-green-100 transition-colors duration-150 bg-green-700 rounded-lg focus:shadow-outline hover:bg-green-800">O.S</a>
                         <!--Card-->
                         <div id='recipients' class="w-full p-8 mt-6 lg:mt-0 rounded shadow bg-white">
                             <table id="example" class="stripe hover p-2 w-full text-center">
@@ -29,25 +29,26 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($orders as $order)
                                 <tr>
-                                    <td>Bills Services e Network</td>
-                                    <td>0714</td>
-                                    <td>Jorge Lima</td>
-                                    <td>28/06/2021 10:00</td>
-                                    <td>28/06/2021 10:00</td>
-                                    <td>Fechada</td>
-                                    <td>R$380,00</td>
-                                    <td>R$380,00</td>
+                                    <td>{{ $order->client_id }}</td>
+                                    <td>{{ $order->id }}</td>
+                                    <td>{{ $order->responsible->name }}</td>
+                                    <td>{{ date('d/m/Y H:i', strtotime($order->start)) }}</td>
+                                    <td>{{ date('d/m/Y H:i', strtotime($order->end)) }}</td>
+                                    <td>{{ $order->status }}</td>
+                                    <td>R$ {{ $order->amount }}</td>
+                                    <td>R$ {{ $order->billed }}</td>
                                     <td>
                                         <form action="" method="POST" id="delete" class="flex-auto">
                                             <a title="Editar" class="text-gray-600 text-2xl icon-pencil-square-o" href="" target="_blank"></a>
-
                                             <a title="Excluir" href="#" class="text-red-600 text-2xl icon-trash-o" onclick="deleteConfirm('delele')"></a>
                                             @csrf
                                             @method('DELETE')
                                         </form>
                                     </td>
                                 </tr>
+                                @endforeach
                                 </tbody>
 
                             </table>

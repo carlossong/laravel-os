@@ -15,7 +15,18 @@ class CreateServiceOrdersTable extends Migration
     {
         Schema::create('service_orders', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('client_id');
+            $table->unsignedBigInteger('responsible');
+            $table->dateTime('start')->nullable();
+            $table->dateTime('end')->nullable();
+            $table->string('status')->nullable();
+            $table->string('reported_defect');
+            $table->string('found_defect')->nullable();
+            $table->string('comments')->nullable();
+            $table->decimal('amount', 10, 2)->default(0.00);
+            $table->decimal('billed', 10, 2)->default(0.00);
             $table->timestamps();
+            $table->foreign('responsible')->references('id')->on('users')->onDelete('CASCADE');
         });
     }
 

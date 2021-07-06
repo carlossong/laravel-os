@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ServiceOrder;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ServiceOrderController extends Controller
@@ -14,7 +15,13 @@ class ServiceOrderController extends Controller
      */
     public function index()
     {
-        return view('order.index');
+        $orders = ServiceOrder::all();
+        $responsibles = ServiceOrder::responsibles()->get();
+
+        return view('order.index',[
+            'orders' => $orders,
+            'responsibles' => $responsibles
+        ]);
     }
 
     /**
@@ -22,9 +29,14 @@ class ServiceOrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
-        //
+        $technical = User::all();
+
+        return view('order.create', [
+            'technical' => $technical
+        ]);
     }
 
     /**
@@ -35,7 +47,11 @@ class ServiceOrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $os = ServiceOrder::create($request->all());
+        $os->fill($request->all());
+        $os->save();
+
+        return redirect(route('os.index'));
     }
 
     /**
@@ -81,5 +97,11 @@ class ServiceOrderController extends Controller
     public function destroy(ServiceOrder $serviceOrder)
     {
         //
+    }
+
+    public function routeLoadEvents()
+    {
+        $os = ServiceOrder::all();
+        return response()->json($os);
     }
 }
