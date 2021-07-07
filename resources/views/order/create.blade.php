@@ -5,6 +5,8 @@
         </h2>
     </x-slot>
 
+    @php($date = now())
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -28,7 +30,7 @@
                                             Técnico / Responsável*
                                         </label>
                                         <div class="relative">
-                                            <select name="responsible" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                                            <select name="responsible_id" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                                                 @foreach($technical as $technician)
                                                     <option value="{{ $technician->id }}" {{ (\Illuminate\Support\Facades\Auth::user()->id == $technician->id ? 'selected' : '') }}>{{ $technician->name }}</option>
                                                 @endforeach
@@ -45,7 +47,7 @@
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
                                             Data/Hora Inicial*
                                         </label>
-                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="start" name="start" type="datetime-local" required>
+                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="start" name="start" type="datetime-local" value="{{ date('Y-m-d\TH:i', strtotime(now())) }}" required>
                                     </div>
                                     <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
@@ -69,7 +71,7 @@
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">
                                             Data/Hora Final
                                         </label>
-                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="end" name="end" type="datetime-local">
+                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="end" name="end" type="datetime-local" value="{{ date('Y-m-d\TH:i', strtotime($date. ' + 3 days')) }}">
                                     </div>
                                     <div class="w-full px-3 mb-6 md:mb-2">
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">

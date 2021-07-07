@@ -33,19 +33,15 @@
                                 <tr>
                                     <td>{{ $order->client_id }}</td>
                                     <td>{{ $order->id }}</td>
-                                    <td>{{ $order->responsible->name }}</td>
+                                    <td>{{ \App\Models\User::where('id', $order->responsible_id)->first()->name }}</td>
                                     <td>{{ date('d/m/Y H:i', strtotime($order->start)) }}</td>
                                     <td>{{ date('d/m/Y H:i', strtotime($order->end)) }}</td>
                                     <td>{{ $order->status }}</td>
                                     <td>R$ {{ $order->amount }}</td>
                                     <td>R$ {{ $order->billed }}</td>
                                     <td>
-                                        <form action="" method="POST" id="delete" class="flex-auto">
-                                            <a title="Editar" class="text-gray-600 text-2xl icon-pencil-square-o" href="" target="_blank"></a>
-                                            <a title="Excluir" href="#" class="text-red-600 text-2xl icon-trash-o" onclick="deleteConfirm('delele')"></a>
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
+                                        <a title="Editar" class="text-gray-600 text-2xl icon-pencil-square-o" href="" target="_blank"></a>
+                                        <a title="Excluir" href="{{ route('os.destroy', $order->id) }}" class="text-red-600 text-2xl icon-trash-o" onclick="deleteConfirm('delele')"></a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -104,4 +100,5 @@
         } );
 
     </script>
+
 </x-app-layout>

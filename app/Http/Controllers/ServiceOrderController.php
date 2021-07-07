@@ -16,11 +16,9 @@ class ServiceOrderController extends Controller
     public function index()
     {
         $orders = ServiceOrder::all();
-        $responsibles = ServiceOrder::responsibles()->get();
 
         return view('order.index',[
-            'orders' => $orders,
-            'responsibles' => $responsibles
+            'orders' => $orders
         ]);
     }
 

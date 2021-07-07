@@ -11,7 +11,7 @@ class ServiceOrder extends Model
 
     protected $fillable = [
         'client_id',
-        'responsible',
+        'responsible_id',
         'start',
         'end',
         'status',
@@ -22,8 +22,8 @@ class ServiceOrder extends Model
         'comments',
     ];
 
-    public function responsibles()
-    {
-        return $this->belongsTo(User::class, 'responsible', 'id');
+     public function responsibles(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+     {
+        return $this->belongsTo(User::class);
     }
 }
