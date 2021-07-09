@@ -32,7 +32,7 @@
                                     <td>Suporte Remoto</td>
                                     <td>Assistencia remota</td>
                                     <td>R$ 80,00</td>
-                                    <td>Editar</td>
+                                    <td><a href="" title="Editar" class="text-gray-600 text-2xl icon-pencil-square-o"></a></td>
                                 </tr>
                                 </tbody>
 

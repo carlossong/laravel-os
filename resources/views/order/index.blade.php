@@ -17,55 +17,41 @@
                             <table id="example" class="stripe hover p-2 w-full text-center">
                                 <thead>
                                 <tr>
-                                    <th data-priority="1">Cliente</th>
                                     <th data-priority="2">O.S</th>
-                                    <th data-priority="3">Responsável</th>
+                                    <th data-priority="1">Cliente</th>
                                     <th data-priority="4">Início</th>
                                     <th data-priority="5">Término</th>
                                     <th data-priority="5">Status</th>
-                                    <th data-priority="6">Valor Total</th>
-                                    <th data-priority="6">Valor Faturado</th>
+                                    <th data-priority="3">Problema Informado</th>
                                     <th data-priority="6">Ações</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($orders as $order)
                                 <tr>
-                                    <td>{{ $order->client_id }}</td>
                                     <td>{{ $order->id }}</td>
-                                    <td>{{ \App\Models\User::where('id', $order->responsible_id)->first()->name }}</td>
+                                    <td>{{ \App\Models\Client::where('id', $order->client_id)->first()->name }}</td>
                                     <td>{{ date('d/m/Y H:i', strtotime($order->start)) }}</td>
                                     <td>{{ date('d/m/Y H:i', strtotime($order->end)) }}</td>
                                     <td>{{ $order->status }}</td>
-                                    <td>R$ {{ $order->amount }}</td>
-                                    <td>R$ {{ $order->billed }}</td>
+                                    <td>{{ $order->reported_defect }}</td>
                                     <td>
-                                        <a title="Editar" class="text-gray-600 text-2xl icon-pencil-square-o" href="" target="_blank"></a>
-                                        <a title="Excluir" href="{{ route('os.destroy', $order->id) }}" class="text-red-600 text-2xl icon-trash-o" onclick="deleteConfirm('delele')"></a>
+                                        <a href="" title="Editar" class="text-gray-600 text-2xl icon-pencil-square-o"></a>
+                                        <a href="{{ route('os.destroy', $order->id) }}" title="Excluir" class="text-red-600 text-2xl icon-trash-o" onclick="deleteConfirm('delele')"></a>
                                     </td>
                                 </tr>
                                 @endforeach
                                 </tbody>
-
                             </table>
-
-
                         </div>
                         <!--/Card-->
-
-
                     </div>
                     <!--/container-->
                 </div>
             </div>
         </div>
     </div>
-    <!-- jQuery -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-    <!--Datatables -->
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
     <script>
         $(document).ready(function() {
 

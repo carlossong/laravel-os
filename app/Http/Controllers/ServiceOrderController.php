@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\ServiceOrder;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ServiceOrderController extends Controller
 {
@@ -15,7 +17,9 @@ class ServiceOrderController extends Controller
      */
     public function index()
     {
-        $orders = ServiceOrder::all();
+        $orders = DB::table('service_orders')
+            ->orderByRaw('id DESC')
+            ->get();
 
         return view('order.index',[
             'orders' => $orders
@@ -45,6 +49,7 @@ class ServiceOrderController extends Controller
      */
     public function store(Request $request)
     {
+
         $os = ServiceOrder::create($request->all());
         $os->fill($request->all());
         $os->save();
@@ -97,9 +102,24 @@ class ServiceOrderController extends Controller
         //
     }
 
-    public function routeLoadEvents()
-    {
-        $os = ServiceOrder::all();
-        return response()->json($os);
+    /*
+   AJAX request
+   */
+    public function searchClient(Request $request){
+
+        $search = $request->search;
+
+        if($search == ''){
+            $client_id = Client::orderby('name','asc')->select('id','name')->limit(5)->get();
+        }else{
+            $client_id = Client::orderby('name','asc')->select('id','name')->where('name', 'like', '%' .$search . '%')->limit(5)->get();
+        }
+
+        $response = array();
+        foreach($client_id as $employee){
+            $response[] = array("value"=>$employee->id,"label"=>$employee->name);
+        }
+
+        return response()->json($response);
     }
 }

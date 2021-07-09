@@ -20,9 +20,9 @@ class CreateServiceOrdersTable extends Migration
             $table->dateTime('start')->default(now());
             $table->dateTime('end')->nullable();
             $table->string('status')->nullable();
-            $table->string('reported_defect');
-            $table->string('found_defect')->nullable();
-            $table->string('comments')->nullable();
+            $table->text('reported_defect');
+            $table->text('found_defect')->nullable();
+            $table->text('comments')->nullable();
             $table->decimal('amount', 10, 2)->default(0.00);
             $table->decimal('billed', 10, 2)->default(0.00);
             $table->timestamps();

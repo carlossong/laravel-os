@@ -26,12 +26,11 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::resource('os', ServiceOrderController::class)->middleware('auth');
-Route::get('/load-events', [ServiceOrderController::class, 'routeLoadEvents'])->name('routeLoadEvents')->middleware('auth');
+Route::post('/os/cliente/search', [ServiceOrderController::class, 'searchClient'])->name('search.client');
 
 Route::resource('cliente', ClientController::class)->middleware('auth');
-Route::resource('services', ServiceController::class)->middleware('auth');
 
-Route::get('calendar-event', [CalenderController::class, 'index']);
-Route::post('calendar-crud-ajax', [CalenderController::class, 'calendarEvents']);
+
+Route::resource('services', ServiceController::class)->middleware('auth');
 
 require __DIR__.'/auth.php';

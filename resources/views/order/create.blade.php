@@ -22,7 +22,8 @@
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                                             Cliente*
                                         </label>
-                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="client_id" name="client_id" value="{{ Auth::user()->id }}" type="text" placeholder="Digite o nome do cliente" required>
+                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="client_search" type="text" placeholder="Digite o nome do cliente" required>
+                                        <input type="text" name="client_id" id='client_id' hidden>
                                     </div>
 
                                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -50,7 +51,7 @@
                                         <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="start" name="start" type="datetime-local" value="{{ date('Y-m-d\TH:i', strtotime(now())) }}" required>
                                     </div>
                                     <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="relative">
                                             status*
                                         </label>
                                         <div class="relative">
@@ -107,41 +108,39 @@
     </div>
     <!-- jQuery -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <!--Datatables -->
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-    <script>
-        $(document).ready(function() {
+    <script src="{{asset('js/jquery-ui.min.js')}}" type="text/javascript"></script>
 
-            var table = $('#example').DataTable( {
-                responsive: true,
-                "language": {
-                    "sEmptyTable": "Nenhum registro encontrado",
-                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sInfoThousands": ".",
-                    "sLengthMenu": "_MENU_ Resultados por página",
-                    "sLoadingRecords": "Carregando...",
-                    "sProcessing": "Processando...",
-                    "sZeroRecords": "Nenhum registro encontrado",
-                    "sSearch": "Pesquisar",
-                    "oPaginate": {
-                        "sNext": "Próximo",
-                        "sPrevious": "Anterior",
-                        "sFirst": "Primeiro",
-                        "sLast": "Último"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Ordenar colunas de forma ascendente",
-                        "sSortDescending": ": Ordenar colunas de forma descendente"
-                    }
+    <!-- Script -->
+    <script type="text/javascript">
+
+        // CSRF Token
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $(document).ready(function(){
+
+            $( "#client_search" ).autocomplete({
+                source: function( request, response ) {
+                    // Fetch data
+                    $.ajax({
+                        url:"{{route('search.client')}}",
+                        type: 'post',
+                        dataType: "json",
+                        data: {
+                            _token: CSRF_TOKEN,
+                            search: request.term
+                        },
+                        success: function( data ) {
+                            response( data );
+                        }
+                    });
+                },
+                select: function (event, ui) {
+                    // Set selection
+                    $('#client_search').val(ui.item.label); // display the selected text
+                    $('#client_id').val(ui.item.value); // save selected id to input
+                    return false;
                 }
-            } )
-                .columns.adjust()
-                .responsive.recalc();
-        } );
+            });
 
+        });
     </script>
 </x-app-layout>

@@ -11,7 +11,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <!--Container-->
                     <div class="w-full mx-auto px-2">
-                        <a href="#" class="icon-plus inline-flex items-center h-8 px-4 m-2 text-sm text-green-100 transition-colors duration-150 bg-green-700 rounded-lg focus:shadow-outline hover:bg-green-800">Cliente</a>
+                        <a href="{{ route('cliente.create') }}" class="icon-plus inline-flex items-center h-8 px-4 m-2 text-sm text-green-100 transition-colors duration-150 bg-green-700 rounded-lg focus:shadow-outline hover:bg-green-800">Cliente</a>
                         <!--Card-->
                         <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
 
@@ -34,7 +34,7 @@
                                     <td>01.264.674/0001-66</td>
                                     <td>(11) 2468-2000</td>
                                     <td>contato@billsinformatica.com.br</td>
-                                    <td>Imprimir</td>
+                                    <td><a href="#" title="Editar" class="text-gray-600 text-2xl icon-pencil-square-o"></a></td>
                                 </tr>
                                 </tbody>
 
@@ -51,13 +51,7 @@
             </div>
         </div>
     </div>
-    <!-- jQuery -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
-    <!--Datatables -->
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-    <script>
+   <script>
         $(document).ready(function() {
 
             var table = $('#example').DataTable( {
