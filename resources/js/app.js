@@ -24,3 +24,4 @@ window.deleteConfirm = function(formId)
         }
     })
 }
+
