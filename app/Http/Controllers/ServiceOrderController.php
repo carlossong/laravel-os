@@ -17,12 +17,12 @@ class ServiceOrderController extends Controller
      */
     public function index()
     {
-        $orders = DB::table('service_orders')
+        $serviceOrders = DB::table('service_orders')
             ->orderByRaw('id DESC')
             ->get();
 
         return view('order.index',[
-            'orders' => $orders
+            'serviceOrders' => $serviceOrders
         ]);
     }
 
@@ -100,6 +100,26 @@ class ServiceOrderController extends Controller
     public function destroy(ServiceOrder $serviceOrder)
     {
         //
+    }
+
+    public function delete($id)
+    {
+        $delete = ServiceOrder::destroy($id);
+
+        // check data deleted or not
+        if ($delete == 1) {
+            $success = true;
+            $message = "User deleted successfully";
+        } else {
+            $success = true;
+            $message = "User not found";
+        }
+
+        //  return response
+        return response()->json([
+            'success' => $success,
+            'message' => $message,
+        ]);
     }
 
     /*

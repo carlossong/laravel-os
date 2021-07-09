@@ -27,17 +27,17 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($orders as $order)
+                                @foreach($serviceOrders as $serviceOrder)
                                 <tr>
-                                    <td>{{ $order->id }}</td>
-                                    <td>{{ \App\Models\Client::where('id', $order->client_id)->first()->name }}</td>
-                                    <td>{{ date('d/m/Y H:i', strtotime($order->start)) }}</td>
-                                    <td>{{ date('d/m/Y H:i', strtotime($order->end)) }}</td>
-                                    <td>{{ $order->status }}</td>
-                                    <td>{{ $order->reported_defect }}</td>
+                                    <td>{{ $serviceOrder->id }}</td>
+                                    <td>{{ \App\Models\Client::where('id', $serviceOrder->client_id)->first()->name }}</td>
+                                    <td>{{ date('d/m/Y H:i', strtotime($serviceOrder->start)) }}</td>
+                                    <td>{{ date('d/m/Y H:i', strtotime($serviceOrder->end)) }}</td>
+                                    <td>{{ $serviceOrder->status }}</td>
+                                    <td>{{ $serviceOrder->reported_defect }}</td>
                                     <td>
                                         <a href="" title="Editar" class="text-gray-600 text-2xl icon-pencil-square-o"></a>
-                                        <a href="{{ route('os.destroy', $order->id) }}" title="Excluir" class="text-red-600 text-2xl icon-trash-o" onclick="deleteConfirm('delele')"></a>
+                                        <button title="Excluir" class="text-red-600 text-2xl icon-trash-o" onclick="deleteConfirmation({{$serviceOrder->id}})"></button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -85,6 +85,54 @@
                 .responsive.recalc();
         } );
 
+        //Deletar OS
+
+        function deleteConfirmation(id) {
+
+            swal.fire({
+                title: "Tem certeza?",
+                icon: 'question',
+                text: "Essa ação não poderá ser revertida!",
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonText: "Sim, Deletar!",
+                confirmButtonColor: '#d33',
+                cancelButtonText: "Não, Cancelar!",
+                cancelButtonColor: '#3085d6',
+                reverseButtons: !0
+            }).then(function (e) {
+
+                if (e.value === true) {
+                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{url('/delete')}}/" + id,
+                        data: {_token: CSRF_TOKEN},
+                        dataType: 'JSON',
+                        success: function (results) {
+                            if (results.success === true) {
+                                swal.fire("Done!", results.message, "success");
+                                // refresh page after 2 seconds
+                                setTimeout(function(){
+                                    location.reload();
+                                },2000);
+                            } else {
+                                swal.fire("Error!", results.message, "error");
+                            }
+                        }
+                    });
+
+                } else {
+                    e.dismiss;
+                }
+
+            }, function (dismiss) {
+                return false;
+            })
+        }
+
     </script>
+
 
 </x-app-layout>

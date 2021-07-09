@@ -5,6 +5,7 @@ require('alpinejs');
 import Swal from 'sweetalert2';
 
 window.deleteConfirm = function(formId)
+
 {
     Swal.fire({
         title: 'Tem certeza?',
@@ -16,6 +17,7 @@ window.deleteConfirm = function(formId)
         confirmButtonText: 'Sim, deletar!'
     }).then((result) => {
         if (result.isConfirmed) {
+
             Swal.fire(
                 'Deleted!',
                 'Registro deletado.',
