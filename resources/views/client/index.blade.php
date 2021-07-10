@@ -14,9 +14,7 @@
                         <a href="{{ route('cliente.create') }}" class="icon-plus inline-flex items-center h-8 px-4 m-2 text-sm text-green-100 transition-colors duration-150 bg-green-700 rounded-lg focus:shadow-outline hover:bg-green-800">Cliente</a>
                         <!--Card-->
                         <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
-
-
-                            <table id="example" class="stripe hover text-center" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+                            <table id="clientes" class="stripe hover text-center" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                                 <thead>
                                 <tr>
                                     <th data-priority="1">Código</th>
@@ -28,23 +26,24 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($clients as $client)
                                 <tr>
-                                    <td>252</td>
-                                    <td>Bills Services e Network</td>
-                                    <td>01.264.674/0001-66</td>
-                                    <td>(11) 2468-2000</td>
-                                    <td>contato@billsinformatica.com.br</td>
-                                    <td><a href="#" title="Editar" class="text-gray-600 text-2xl icon-pencil-square-o"></a></td>
+                                    <td>#{{ $client->id }}</td>
+                                    <td>{{ $client->name }}</td>
+                                    <td>{{ $client->document }}</td>
+                                    <td>{{ $client->phone }}</td>
+                                    <td>{{ $client->email }}</td>
+                                    <td>
+                                        <a href="{{ route('cliente.editar', $client->id) }}" title="Editar" class="text-gray-600 text-2xl icon-pencil-square-o"></a>
+                                    </td>
                                 </tr>
+                                @endforeach
                                 </tbody>
-
                             </table>
 
 
                         </div>
                         <!--/Card-->
-
-
                     </div>
                     <!--/container-->
                 </div>
@@ -54,7 +53,7 @@
    <script>
         $(document).ready(function() {
 
-            var table = $('#example').DataTable( {
+            var table = $('#clientes').DataTable( {
                 responsive: true,
                 "language": {
                     "sEmptyTable": "Nenhum registro encontrado",
@@ -85,4 +84,5 @@
         } );
 
     </script>
+
 </x-app-layout>

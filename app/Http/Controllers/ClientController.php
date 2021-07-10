@@ -14,7 +14,10 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return view('client.index');
+        $clients = Client::all();
+        return view('client.index', [
+            'clients' => $clients
+        ]);
     }
 
     /**
@@ -35,7 +38,12 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $os = Client::create($request->all());
+        $os->fill($request->all());
+        $os->save();
+
+        return redirect(route('cliente.index'));
     }
 
     /**
@@ -57,7 +65,16 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        //
+
+        dd($client);
+
+        $client = Client::findOrFail($client->id);
+
+        dd($client);
+
+        return view('client.edit',[
+            'client' => $client
+        ]);
     }
 
     /**

@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\CalenderController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ServiceOrderController;
@@ -30,7 +29,6 @@ Route::post('/os/cliente/search', [ServiceOrderController::class, 'searchClient'
 Route::post('delete/{id}', [ServiceOrderController::class, 'delete'])->name('delete');
 
 Route::resource('cliente', ClientController::class)->middleware('auth');
-
 
 Route::resource('services', ServiceController::class)->middleware('auth');
 

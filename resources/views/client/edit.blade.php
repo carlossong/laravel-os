@@ -15,12 +15,13 @@
                         <!--Card-->
                         <div id='recipients' class="w-full p-8 mt-6 lg:mt-0 rounded shadow bg-white">
 
-                            <form action="{{ route('cliente.store') }}" id="" method="post" class="w-full">
+                            <form action="" method="post" class="w-full">
                                 @csrf
+                                @method('PUT')
                                 <div class="w-full px-3 mb-6 md:mb-2">
                                     <label for="document" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">CPF/CNPJ<span class="required">*</span></label>
                                     <div>
-                                        <input onblur="checkCnpj(this.value)" data-mask="00.000.000/00000-00" type="text" name="document" value="" id="document" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                                        <input data-mask="00.000.000/00000-00" type="text" name="document" value="" id="document" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
                                     </div>
                                 </div>
 

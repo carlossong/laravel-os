@@ -116,7 +116,7 @@
                                 // refresh page after 2 seconds
                                 setTimeout(function(){
                                     location.reload();
-                                },2000);
+                                },1000);
                             } else {
                                 swal.fire("Error!", results.message, "error");
                             }
