@@ -11,7 +11,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <!--Container-->
                     <div class="w-full mx-auto px-2">
-                        <a href="{{ route('cliente.create') }}" class="icon-plus inline-flex items-center h-8 px-4 m-2 text-sm text-green-100 transition-colors duration-150 bg-green-700 rounded-lg focus:shadow-outline hover:bg-green-800">Cliente</a>
+                        <a href="{{ route('client.create') }}" class="icon-plus inline-flex items-center h-8 px-4 m-2 text-sm text-green-100 transition-colors duration-150 bg-green-700 rounded-lg focus:shadow-outline hover:bg-green-800">Cliente</a>
                         <!--Card-->
                         <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
                             <table id="clientes" class="stripe hover text-center" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
@@ -34,7 +34,7 @@
                                     <td>{{ $client->phone }}</td>
                                     <td>{{ $client->email }}</td>
                                     <td>
-                                        <a href="{{ route('cliente.editar', $client->id) }}" title="Editar" class="text-gray-600 text-2xl icon-pencil-square-o"></a>
+                                        <a href="{{ route('client.edit', ['client' => $client->id]) }}" title="Editar" class="text-gray-600 text-2xl icon-pencil-square-o"></a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -83,6 +83,30 @@
                 .responsive.recalc();
         } );
 
+
     </script>
+
+    @if (\Session::has('success'))
+
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'success',
+                title: '{!! \Session::get('success') !!}'
+            })
+        </script>
+
+    @endif
 
 </x-app-layout>

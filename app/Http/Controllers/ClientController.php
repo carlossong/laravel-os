@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ClientController extends Controller
 {
@@ -36,14 +37,21 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Client $client)
     {
+
+        $roles = [
+            'document' => 'required|unique:clients,document'.$client->document,
+            'email' => 'required|email',
+            'name' => 'required',
+        ];
+        $request->validate($roles);
 
         $os = Client::create($request->all());
         $os->fill($request->all());
         $os->save();
 
-        return redirect(route('cliente.index'));
+        return redirect(route('client.index'))->with('success', 'Cliente Adicionado com Sucesso!');
     }
 
     /**
@@ -65,13 +73,6 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-
-        dd($client);
-
-        $client = Client::findOrFail($client->id);
-
-        dd($client);
-
         return view('client.edit',[
             'client' => $client
         ]);
@@ -86,7 +87,9 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        //
+        Client::findOrFail($client->id)->update($request->all());
+
+        return redirect()->route('client.index')->with('success', 'Cliente atualizado com Sucesso!');
     }
 
     /**

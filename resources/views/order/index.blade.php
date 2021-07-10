@@ -95,9 +95,9 @@
                 text: "Essa ação não poderá ser revertida!",
                 type: "warning",
                 showCancelButton: !0,
-                confirmButtonText: "Sim, Deletar!",
+                confirmButtonText: "Sim. Deletar!",
                 confirmButtonColor: '#d33',
-                cancelButtonText: "Não, Cancelar!",
+                cancelButtonText: "Não. Cancelar!",
                 cancelButtonColor: '#3085d6',
                 reverseButtons: !0
             }).then(function (e) {
@@ -112,7 +112,7 @@
                         dataType: 'JSON',
                         success: function (results) {
                             if (results.success === true) {
-                                swal.fire("Done!", results.message, "success");
+                                swal.fire("Concluído!", results.message, "success");
                                 // refresh page after 2 seconds
                                 setTimeout(function(){
                                     location.reload();
@@ -134,5 +134,27 @@
 
     </script>
 
+    @if (\Session::has('success'))
+
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'success',
+                title: '{!! \Session::get('success') !!}'
+            })
+        </script>
+
+    @endif
 
 </x-app-layout>

@@ -26,6 +26,7 @@ class CreateServiceOrdersTable extends Migration
             $table->decimal('amount', 10, 2)->default(0.00);
             $table->decimal('billed', 10, 2)->default(0.00);
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('responsible_id')->references('id')->on('users')->onDelete('CASCADE');
         });
     }

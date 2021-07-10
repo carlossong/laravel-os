@@ -49,12 +49,17 @@ class ServiceOrderController extends Controller
      */
     public function store(Request $request)
     {
+        $roles = [
+            'client_id' => 'required',
+            'responsible_id' => 'required',
+        ];
+        $request->validate($roles);
 
         $os = ServiceOrder::create($request->all());
         $os->fill($request->all());
         $os->save();
 
-        return redirect(route('os.index'));
+        return redirect(route('os.index'))->with('success', 'Ordem de Serviço Adicionado com Sucesso!');
     }
 
     /**
@@ -109,10 +114,10 @@ class ServiceOrderController extends Controller
         // check data deleted or not
         if ($delete == 1) {
             $success = true;
-            $message = "User deleted successfully";
+            $message = "Ordem de Serviço Removida";
         } else {
             $success = true;
-            $message = "User not found";
+            $message = "Não foi Possível Apagar O.S";
         }
 
         //  return response
