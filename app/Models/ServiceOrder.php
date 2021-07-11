@@ -27,4 +27,9 @@ class ServiceOrder extends Model
      {
         return $this->belongsTo(User::class);
     }
+
+    public function client(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Client::class);
+    }
 }

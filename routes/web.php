@@ -24,7 +24,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::resource('os', ServiceOrderController::class)->middleware('auth');
+Route::resource('order', ServiceOrderController::class)->middleware('auth');
 Route::post('/os/cliente/search', [ServiceOrderController::class, 'searchClient'])->name('search.client');
 Route::post('delete/{id}', [ServiceOrderController::class, 'delete'])->name('delete');
 

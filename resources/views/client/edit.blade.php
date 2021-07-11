@@ -20,7 +20,7 @@
                                 <div class="w-full px-3 mb-6 md:mb-2">
                                     <label for="document" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">CPF/CNPJ<span class="required">*</span></label>
                                     <div>
-                                        <input data-mask="00.000.000/00000-00" type="text" name="document" value="{{ old('document') ?? $client->document }}" id="document" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                                        <input type="text" name="document" value="{{ old('document') ?? $client->document }}" id="document" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
                                     </div>
                                 </div>
 

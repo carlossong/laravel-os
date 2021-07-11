@@ -15,15 +15,15 @@
                     <div class="w-full mx-auto px-2">
                         <!--Card-->
                         <div id='recipients' class="w-full p-8 mt-6 lg:mt-0 rounded shadow bg-white">
-                            <form class="w-full" method="post" action="{{ route('os.store') }}">
+                            <form class="w-full" method="post" action="{{ route('order.update', ['order' => $serviceOrder->id]) }}">
                                 @csrf
+                                @method('PUT')
                                 <div class="flex flex-wrap -mx-3 mb-6">
                                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                                             Cliente*
                                         </label>
-                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="client_search" type="text" placeholder="Digite o nome do cliente" required>
-                                        <input type="text" name="client_id" id='client_id' hidden>
+                                        <input value="{{ $client->name }}" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="client_search" type="text" placeholder="Digite o nome do cliente" required>
                                     </div>
 
                                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -33,12 +33,10 @@
                                         <div class="relative">
                                             <select name="responsible_id" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                                                 @foreach($technical as $technician)
-                                                    <option value="{{ $technician->id }}" {{ (\Illuminate\Support\Facades\Auth::user()->id == $technician->id ? 'selected' : '') }}>{{ $technician->name }}</option>
+                                                    <option value="{{ $technician->id }}" {{ ($technician->id === \Illuminate\Support\Facades\Auth::user() ? 'selected' : '') }}>{{ $technician->name }}</option>
                                                 @endforeach
                                             </select>
-                                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -48,7 +46,7 @@
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
                                             Data/Hora Inicial*
                                         </label>
-                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="start" name="start" type="datetime-local" value="{{ date('Y-m-d\TH:i', strtotime(now())) }}" required>
+                                        <input id="start" name="start" type="datetime-local" value="{{ date('Y-m-d\TH:i', strtotime($serviceOrder->start)) }}" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" required>
                                     </div>
                                     <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="relative">
@@ -56,41 +54,39 @@
                                         </label>
                                         <div class="relative">
                                             <select name="status" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-                                                <option>Orçamento</option>
-                                                <option>Aberta</option>
-                                                <option>Em Andamento</option>
-                                                <option>Cancelada</option>
-                                                <option>Aguardando Peça</option>
-                                                <option>Finalizada</option>
+                                                <option value="Orçamento" {{ ($serviceOrder->status === "Orçamento" ? 'selected' : '') }}>Orçamento</option>
+                                                <option value="Aberta" {{ ($serviceOrder->status === "Aberta" ? 'selected' : '') }}>Aberta</option>
+                                                <option value="Em Andamento" {{ ($serviceOrder->status === "Em Andamento" ? 'selected' : '') }}>Em Andamento</option>
+                                                <option value="Aguardando Peça" {{ ($serviceOrder->status === "Aguardando Peça" ? 'selected' : '') }}>Aguardando Peça</option>
+                                                <option value="Finalizada" {{ ($serviceOrder->status === "Finalizada" ? 'selected' : '') }}>Finalizada</option>
+                                                <option value="Cancelada" {{ ($serviceOrder->status === "Cancelada" ? 'selected' : '') }}>Cancelada</option>
                                             </select>
-                                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                                            </div>
+
                                         </div>
                                     </div>
                                     <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">
                                             Data/Hora Final
                                         </label>
-                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="end" name="end" type="datetime-local" value="{{ date('Y-m-d\TH:i', strtotime($date. ' + 3 days')) }}">
+                                        <input id="end" name="end" type="datetime-local" value="{{ date('Y-m-d\TH:i', strtotime($serviceOrder->end)) }}" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                     </div>
                                     <div class="w-full px-3 mb-6 md:mb-2">
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                                             Problema Informado*
                                         </label>
-                                        <textarea class="resize border rounded-md appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="reported_defect" rows="5" title="Defeiro informado" required></textarea>
+                                        <textarea class="resize border rounded-md appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="reported_defect" rows="5" title="Defeiro informado" required>{{ $serviceOrder->reported_defect }}</textarea>
                                     </div>
                                     <div class="w-full px-3 mb-6 md:mb-2">
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="found_defect">
                                             Problema Constatado
                                         </label>
-                                        <textarea class="resize border rounded-md appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="found_defect" rows="5" title="Defeiro Constatado"></textarea>
+                                        <textarea class="resize border rounded-md appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="found_defect" rows="5" title="Defeiro Constatado">{{ $serviceOrder->found_defect }}</textarea>
                                     </div>
                                     <div class="w-full px-3 mb-6 md:mb-2">
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="comments">
                                             Observações
                                         </label>
-                                        <textarea class="resize border rounded-md appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="comments" rows="5" title="Observações"></textarea>
+                                        <textarea class="resize border rounded-md appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="comments" rows="5" title="Observações">{{ $serviceOrder->comments }}</textarea>
                                     </div>
 
                                 </div>
@@ -106,9 +102,6 @@
             </div>
         </div>
     </div>
-    <!-- jQuery -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="{{asset('js/jquery-ui.min.js')}}" type="text/javascript"></script>
 
     <!-- Script -->
     <script type="text/javascript">

@@ -11,7 +11,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <!--Container-->
                     <div class="w-full mx-auto px-2">
-                        <a href="{{ route('os.create') }}" class="icon-plus inline-flex items-center h-8 px-4 m-2 text-sm text-green-100 transition-colors duration-150 bg-green-700 rounded-lg focus:shadow-outline hover:bg-green-800">O.S</a>
+                        <a href="{{ route('order.create') }}" class="icon-plus inline-flex items-center h-8 px-4 m-2 text-sm text-green-100 transition-colors duration-150 bg-green-700 rounded-lg focus:shadow-outline hover:bg-green-800">O.S</a>
                         <!--Card-->
                         <div id='recipients' class="w-full p-8 mt-6 lg:mt-0 rounded shadow bg-white">
                             <table id="example" class="stripe hover p-2 w-full text-center">
@@ -36,7 +36,7 @@
                                     <td>{{ $serviceOrder->status }}</td>
                                     <td>{{ $serviceOrder->reported_defect }}</td>
                                     <td>
-                                        <a href="" title="Editar" class="text-gray-600 text-2xl icon-pencil-square-o"></a>
+                                        <a href="{{ route('order.edit', ['order' => $serviceOrder->id]) }}" title="Editar" class="text-gray-600 text-2xl icon-pencil-square-o"></a>
                                         <button title="Excluir" class="text-red-600 text-2xl icon-trash-o" onclick="deleteConfirmation({{$serviceOrder->id}})"></button>
                                     </td>
                                 </tr>
@@ -116,7 +116,7 @@
                                 // refresh page after 2 seconds
                                 setTimeout(function(){
                                     location.reload();
-                                },1000);
+                                },2000);
                             } else {
                                 swal.fire("Error!", results.message, "error");
                             }

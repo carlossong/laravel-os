@@ -42,14 +42,14 @@ class ClientController extends Controller
 
         $roles = [
             'document' => 'required|unique:clients,document'.$client->document,
-            'email' => 'required|email',
+            'email' => 'required|email|unique:clients,email'.$client->email,
             'name' => 'required',
         ];
         $request->validate($roles);
 
-        $os = Client::create($request->all());
-        $os->fill($request->all());
-        $os->save();
+        $client = Client::create($request->all());
+        $client->fill($request->all());
+        $client->save();
 
         return redirect(route('client.index'))->with('success', 'Cliente Adicionado com Sucesso!');
     }
@@ -87,6 +87,7 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
+
         Client::findOrFail($client->id)->update($request->all());
 
         return redirect()->route('client.index')->with('success', 'Cliente atualizado com Sucesso!');

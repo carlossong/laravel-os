@@ -6,7 +6,6 @@ use App\Models\Client;
 use App\Models\ServiceOrder;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ServiceOrderController extends Controller
 {
@@ -17,9 +16,7 @@ class ServiceOrderController extends Controller
      */
     public function index()
     {
-        $serviceOrders = DB::table('service_orders')
-            ->orderByRaw('id DESC')
-            ->get();
+        $serviceOrders = ServiceOrder::all();
 
         return view('order.index',[
             'serviceOrders' => $serviceOrders
@@ -59,7 +56,7 @@ class ServiceOrderController extends Controller
         $os->fill($request->all());
         $os->save();
 
-        return redirect(route('os.index'))->with('success', 'Ordem de Serviço Adicionado com Sucesso!');
+        return redirect(route('order.index'))->with('success', 'Ordem de Serviço Adicionado com Sucesso!');
     }
 
     /**
@@ -76,24 +73,31 @@ class ServiceOrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ServiceOrder  $serviceOrder
+     * @param  \App\Models\ServiceOrder  $order
      * @return \Illuminate\Http\Response
      */
-    public function edit(ServiceOrder $serviceOrder)
+    public function edit(ServiceOrder $order)
     {
-        //
+        $client = $order->client()->first();
+        $technical = User::all();
+        return view('order.edit', [
+            'serviceOrder' => $order,
+            'technical' => $technical,
+            'client' => $client
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ServiceOrder  $serviceOrder
+     * @param  \App\Models\ServiceOrder  $order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ServiceOrder $serviceOrder)
+    public function update(Request $request, ServiceOrder $order)
     {
-        //
+        ServiceOrder::findOrFail($order->id)->update($request->all());
+        return redirect(route('order.index'))->with('success', 'Ordem de Serviço Atualizada com Sucesso!');
     }
 
     /**
