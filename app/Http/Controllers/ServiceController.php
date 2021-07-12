@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Service;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,10 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        return view('service.index');
+        $services = Service::all();
+        return view('service.index', [
+            'services' => $services
+        ]);
     }
 
     /**
@@ -24,7 +28,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+        return view('service.create');
     }
 
     /**
@@ -33,9 +37,20 @@ class ServiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Service $service)
     {
-        //
+        $roles = [
+            'name' => 'required',
+            'price' => 'required',
+            'description' => 'required',
+        ];
+        $request->validate($roles);
+
+        $service = Service::create($request->all());
+        $service->fill($request->all());
+        $service->save();
+
+        return redirect(route('service.index'))->with('success', 'Serviço Adicionado com Sucesso!');
     }
 
     /**
@@ -57,7 +72,9 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
-        //
+        return view('service.edit', [
+            'service' => $service
+        ]);
     }
 
     /**
@@ -69,7 +86,9 @@ class ServiceController extends Controller
      */
     public function update(Request $request, Service $service)
     {
-        //
+        Service::findOrFail($service->id)->update($request->all());
+
+        return redirect()->route('service.index')->with('success', 'Serviço atualizado com Sucesso!');
     }
 
     /**

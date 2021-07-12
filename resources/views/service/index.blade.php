@@ -11,7 +11,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <!--Container-->
                     <div class="w-full mx-auto px-2">
-                        <a href="#" class="icon-plus inline-flex items-center h-8 px-4 m-2 text-sm text-green-100 transition-colors duration-150 bg-green-700 rounded-lg focus:shadow-outline hover:bg-green-800">Serviço</a>
+                        <a href="{{ route('service.create') }}" class="icon-plus inline-flex items-center h-8 px-4 m-2 text-sm text-green-100 transition-colors duration-150 bg-green-700 rounded-lg focus:shadow-outline hover:bg-green-800">Serviço</a>
                         <!--Card-->
                         <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
 
@@ -23,17 +23,19 @@
                                     <th data-priority="2">Nome</th>
                                     <th data-priority="3">Descrição</th>
                                     <th data-priority="4">Valor</th>
-                                    <th data-priority="5">Ações</th>
+                                    <th data-priority="5">Editar</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($services as $service)
                                 <tr>
-                                    <td>252</td>
-                                    <td>Suporte Remoto</td>
-                                    <td>Assistencia remota</td>
-                                    <td>R$ 80,00</td>
-                                    <td><a href="" title="Editar" class="text-gray-600 text-2xl icon-pencil-square-o"></a></td>
+                                    <td>{{ $service->id }}</td>
+                                    <td>{{ $service->name }}</td>
+                                    <td>{{ $service->description }}</td>
+                                    <td>R$ {{ $service->price }}</td>
+                                    <td><a href="{{ route('service.edit', ['service' => $service->id]) }}" title="Editar" class="text-gray-600 text-2xl icon-pencil-square-o"></a></td>
                                 </tr>
+                                @endforeach
                                 </tbody>
 
                             </table>
@@ -49,12 +51,7 @@
             </div>
         </div>
     </div>
-    <!-- jQuery -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-    <!--Datatables -->
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
     <script>
         $(document).ready(function() {
 
@@ -89,4 +86,27 @@
         } );
 
     </script>
+
+    @if (\Session::has('success'))
+
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'success',
+                title: '{!! \Session::get('success') !!}'
+            })
+        </script>
+
+    @endif
 </x-app-layout>

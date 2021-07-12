@@ -33,7 +33,7 @@
                                         <div class="relative">
                                             <select name="responsible_id" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                                                 @foreach($technical as $technician)
-                                                    <option value="{{ $technician->id }}" {{ ($technician->id === \Illuminate\Support\Facades\Auth::user() ? 'selected' : '') }}>{{ $technician->name }}</option>
+                                                    <option value="{{ $technician->id }}" {{ ($technician->id === $serviceOrder->responsible_id ? 'selected' : '') }}>{{ $technician->name }}</option>
                                                 @endforeach
                                             </select>
 

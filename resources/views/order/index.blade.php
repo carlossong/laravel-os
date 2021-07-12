@@ -20,7 +20,7 @@
                                     <th data-priority="2">O.S</th>
                                     <th data-priority="1">Cliente</th>
                                     <th data-priority="4">Início</th>
-                                    <th data-priority="5">Término</th>
+                                    <th data-priority="5">Técnico</th>
                                     <th data-priority="5">Status</th>
                                     <th data-priority="3">Problema Informado</th>
                                     <th data-priority="6">Ações</th>
@@ -32,7 +32,7 @@
                                     <td>{{ $serviceOrder->id }}</td>
                                     <td>{{ \App\Models\Client::where('id', $serviceOrder->client_id)->first()->name }}</td>
                                     <td>{{ date('d/m/Y H:i', strtotime($serviceOrder->start)) }}</td>
-                                    <td>{{ date('d/m/Y H:i', strtotime($serviceOrder->end)) }}</td>
+                                    <td>{{ \App\Models\User::where('id', $serviceOrder->responsible_id)->first()->name }}</td>
                                     <td>{{ $serviceOrder->status }}</td>
                                     <td>{{ $serviceOrder->reported_defect }}</td>
                                     <td>
