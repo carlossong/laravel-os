@@ -33,7 +33,7 @@
                                     <td>{{ \App\Models\Client::where('id', $serviceOrder->client_id)->first()->name }}</td>
                                     <td>{{ date('d/m/Y H:i', strtotime($serviceOrder->start)) }}</td>
                                     <td>{{ \App\Models\User::where('id', $serviceOrder->responsible_id)->first()->name }}</td>
-                                    <td>{{ $serviceOrder->status }}</td>
+                                    <td><span class="{{ ($serviceOrder->status == 'Aberta' ? 'bg-blue-400' : ($serviceOrder->status == 'Orçamento' ? 'bg-yellow-400' : ($serviceOrder->status == 'Aguardando Peça' ? 'bg-indigo-400' : ($serviceOrder->status == 'Cancelada' ? 'bg-red-600' : 'bg-green-600')))) }} px-3 rounded-full">{{ $serviceOrder->status }}</span></td>
                                     <td>{{ $serviceOrder->reported_defect }}</td>
                                     <td>
                                         <a href="{{ route('order.edit', ['order' => $serviceOrder->id]) }}" title="Editar" class="text-gray-600 text-2xl icon-pencil-square-o"></a>

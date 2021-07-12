@@ -56,7 +56,6 @@
                                             <select name="status" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                                                 <option value="Orçamento" {{ ($serviceOrder->status === "Orçamento" ? 'selected' : '') }}>Orçamento</option>
                                                 <option value="Aberta" {{ ($serviceOrder->status === "Aberta" ? 'selected' : '') }}>Aberta</option>
-                                                <option value="Em Andamento" {{ ($serviceOrder->status === "Em Andamento" ? 'selected' : '') }}>Em Andamento</option>
                                                 <option value="Aguardando Peça" {{ ($serviceOrder->status === "Aguardando Peça" ? 'selected' : '') }}>Aguardando Peça</option>
                                                 <option value="Finalizada" {{ ($serviceOrder->status === "Finalizada" ? 'selected' : '') }}>Finalizada</option>
                                                 <option value="Cancelada" {{ ($serviceOrder->status === "Cancelada" ? 'selected' : '') }}>Cancelada</option>
@@ -81,6 +80,12 @@
                                             Problema Constatado
                                         </label>
                                         <textarea class="resize border rounded-md appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="found_defect" rows="5" title="Defeiro Constatado">{{ $serviceOrder->found_defect }}</textarea>
+                                    </div>
+                                    <div class="w-full px-3 mb-6 md:mb-2">
+                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="solution_adopted">
+                                            Solução Adotada
+                                        </label>
+                                        <textarea class="resize border rounded-md appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="solution_adopted" rows="5" title="Solução Adotada">{{ $serviceOrder->solution_adopted }}</textarea>
                                     </div>
                                     <div class="w-full px-3 mb-6 md:mb-2">
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="comments">

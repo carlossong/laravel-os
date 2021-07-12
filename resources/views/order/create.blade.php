@@ -58,7 +58,6 @@
                                             <select name="status" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                                                 <option>Orçamento</option>
                                                 <option>Aberta</option>
-                                                <option>Em Andamento</option>
                                                 <option>Cancelada</option>
                                                 <option>Aguardando Peça</option>
                                                 <option>Finalizada</option>
@@ -78,13 +77,19 @@
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                                             Problema Informado*
                                         </label>
-                                        <textarea class="resize border rounded-md appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="reported_defect" rows="5" title="Defeiro informado" required></textarea>
+                                        <textarea class="resize border rounded-md appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="reported_defect" rows="5" title="Defeito informado" required></textarea>
                                     </div>
                                     <div class="w-full px-3 mb-6 md:mb-2">
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="found_defect">
                                             Problema Constatado
                                         </label>
-                                        <textarea class="resize border rounded-md appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="found_defect" rows="5" title="Defeiro Constatado"></textarea>
+                                        <textarea class="resize border rounded-md appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="found_defect" rows="5" title="Defeito Constatado"></textarea>
+                                    </div>
+                                    <div class="w-full px-3 mb-6 md:mb-2">
+                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="solution_adopted">
+                                            Solução Adotada
+                                        </label>
+                                        <textarea class="resize border rounded-md appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="solution_adopted" rows="5" title="Solução Adotada"></textarea>
                                     </div>
                                     <div class="w-full px-3 mb-6 md:mb-2">
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="comments">

@@ -20,6 +20,7 @@ class ServiceOrder extends Model
         'billed',
         'reported_defect',
         'found_defect',
+        'solution_adopted',
         'comments',
     ];
 
