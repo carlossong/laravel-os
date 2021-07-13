@@ -17,7 +17,7 @@
                         </div>
                         <div class="flex space-x-4 text-center">
                             <div class="flex-1 bg-blue-400 py-4 rounded-lg">O.S ABERTAS<p>{{ $open }}</p></div>
-                            <div class="flex-1 bg-yellow-400 py-4 rounded-lg">AGUARDANDO ORÇAMENTO<p>{{ $budget }}</p></div>
+                            <div class="flex-1 bg-yellow-400 py-4 rounded-lg">ORÇAMENTO<p>{{ $budget }}</p></div>
                             <div class="flex-1 bg-indigo-400 py-4 rounded-lg">AGUARDADO PEÇA<P>{{ $parts }}</P></div>
                             <div class="flex-1 bg-red-400 py-4 rounded-lg">FATURAR<P>{{ $bill }}</P></div>
                         </div>

@@ -30,5 +30,6 @@ Route::post('delete/{id}', [ServiceOrderController::class, 'delete'])->name('del
 Route::resource('client', ClientController::class)->middleware('auth');
 
 Route::resource('service', ServiceController::class)->middleware('auth');
+Route::post('/service/search', [ServiceOrderController::class, 'searchService'])->name('search.service');
 
 require __DIR__.'/auth.php';
