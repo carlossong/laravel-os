@@ -25,7 +25,7 @@
                                     </div>
 
                                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-2">
-                                        <label for="name" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Nome<span class="required">*</span></label>
+                                        <label for="name" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Valor Unitário<span class="required">*</span></label>
                                         <div >
                                             <input id="price" type="text" name="price" value="{{ old('price') }}" class="mask-money appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
                                         </div>
