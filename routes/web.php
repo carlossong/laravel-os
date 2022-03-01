@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ServiceOrderController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,7 +29,7 @@ Route::post('/os/cliente/search', [ServiceOrderController::class, 'searchClient'
 Route::post('delete/{id}', [ServiceOrderController::class, 'delete'])->name('delete');
 
 Route::resource('client', ClientController::class)->middleware('auth');
-
+Route::resource('product', ProductController::class)->middleware('auth');
 Route::resource('service', ServiceController::class)->middleware('auth');
 Route::post('/service/search', [ServiceOrderController::class, 'searchService'])->name('search.service');
 
