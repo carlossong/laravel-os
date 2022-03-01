@@ -13,7 +13,7 @@
                     <div class="w-full mx-auto px-2">
                         <a href="{{ route('order.create') }}" class="icon-plus inline-flex items-center h-8 px-4 m-2 text-sm text-green-100 transition-colors duration-150 bg-green-700 rounded-lg focus:shadow-outline hover:bg-green-800">O.S</a>
                         <!--Card-->
-                        <div id='recipients' class="w-full p-8 mt-6 lg:mt-0 rounded shadow bg-white">
+                        {{-- <div id='recipients' class="w-full p-8 mt-6 lg:mt-0 rounded shadow bg-white">
                             <table id="example" class="stripe hover p-2 w-full text-center">
                                 <thead>
                                 <tr>
@@ -43,8 +43,58 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                        </div>
+                        </div> --}}
                         <!--/Card-->
+                        <!-- This example requires Tailwind CSS v2.0+ -->
+                        <div class="flex flex-col">
+                            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                                <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cliente</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Técnico</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Início</th>
+                                        <th scope="col" class="relative px-6 py-3">
+                                        <span class="sr-only">Ações</span>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        @foreach($serviceOrders as $serviceOrder)
+                                    <tr>
+                                        <td class="px-1 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="ml-4">
+                                            <div class="text-sm font-medium text-gray-900">{{ \App\Models\Client::where('id', $serviceOrder->client_id)->first()->name }}</div>
+                                            <div class="text-sm text-gray-500">{{ \App\Models\Client::where('id', $serviceOrder->client_id)->first()->email }}</div>
+                                            </div>
+                                        </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">{{ \App\Models\User::where('id', $serviceOrder->responsible_id)->first()->name }}</div>
+                                        <div class="text-sm text-gray-500">{{ \App\Models\User::where('id', $serviceOrder->responsible_id)->first()->email }}</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ ($serviceOrder->status == 'Aberta' ? 'bg-blue-400' : ($serviceOrder->status == 'Orçamento' ? 'bg-yellow-100' : ($serviceOrder->status == 'Aguardando Peça' ? 'bg-indigo-100' : ($serviceOrder->status == 'Cancelada' ? 'bg-red-100' : 'bg-green-100')))) }}"> {{ $serviceOrder->status }} </span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ date('d/m/Y H:i', strtotime($serviceOrder->start)) }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <a href="{{ route('order.edit', ['order' => $serviceOrder->id]) }}" title="Editar" class="text-gray-600 text-2xl icon-pencil-square-o"></a> 
+                                            <button title="Excluir" class="text-red-600 text-2xl icon-trash-o" onclick="deleteConfirmation({{$serviceOrder->id}})"></button>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                        
+                                    <!-- More people... -->
+                                    </tbody>
+                                </table>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
                     </div>
                     <!--/container-->
                 </div>
@@ -95,10 +145,9 @@
                 text: "Essa ação não poderá ser revertida!",
                 type: "warning",
                 showCancelButton: !0,
-                confirmButtonText: "Sim. Deletar!",
+                confirmButtonText: "Deletar!",
                 confirmButtonColor: '#d33',
-                cancelButtonText: "Não. Cancelar!",
-                cancelButtonColor: '#3085d6',
+                cancelButtonText: "Cancelar!",
                 reverseButtons: !0
             }).then(function (e) {
 
