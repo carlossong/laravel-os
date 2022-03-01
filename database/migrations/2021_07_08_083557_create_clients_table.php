@@ -28,6 +28,8 @@ class CreateClientsTable extends Migration
             $table->string('neighborhood');
             $table->string('city');
             $table->string('state');
+            $table->string('country')->default('Brasil');
+            $table->string('status')->default('Ativo');
             $table->timestamps();
             $table->softDeletes();
         });
