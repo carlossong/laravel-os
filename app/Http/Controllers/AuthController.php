@@ -11,7 +11,7 @@ class AuthController extends Controller
     {
         $open = ServiceOrder::where('status', '!=', 'Finalizada')->where('status', '!=', 'Cancelada')->count();
         $budget = ServiceOrder::where('status', 'Orçamento')->count();
-        $bill = ServiceOrder::where('status', 'Finalizada')->OrWhere('billed', null)->get()->count();
+        $bill = ServiceOrder::where('status', 'Finalizada')->get()->count();
         $parts = ServiceOrder::where('status', 'Aguardando Peça')->count();
 
         return view('dashboard', [

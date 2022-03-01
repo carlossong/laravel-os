@@ -13,7 +13,7 @@
                     <div class="w-full mx-auto px-2">
                         <a href="{{ route('client.create') }}" class="icon-plus inline-flex items-center h-8 px-4 m-2 text-sm text-green-100 transition-colors duration-150 bg-green-700 rounded-lg focus:shadow-outline hover:bg-green-800">Cliente</a>
                         <!--Card-->
-                        <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
+                        {{-- <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
                             <table id="clientes" class="stripe hover text-center" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                                 <thead>
                                 <tr>
@@ -40,10 +40,56 @@
                                 @endforeach
                                 </tbody>
                             </table>
-
-
-                        </div>
+                        </div> --}}
                         <!--/Card-->
+                        <div class="flex flex-col">
+                            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                                <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Código</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">CPF/CNPJ</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Telefone</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                        <th scope="col" class="relative px-6 py-3">
+                                        <span class="sr-only">Edit</span>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        @foreach($clients as $client)
+                                    <tr>
+                                        <td class="px-1 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="ml-4">
+                                            <div class="text-sm font-medium text-gray-900">#{{ $client->id }}</div>
+                                            <div class="text-sm text-gray-500">{{ $client->name }}</div>
+                                            </div>
+                                        </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">{{ $client->document }}</div>
+                                        <div class="text-sm text-gray-500">{{ $client->email }}</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $client->phone }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Active </span>
+                                            </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                <a href="{{ route('client.edit', ['client' => $client->id]) }}" title="Editar" class="text-gray-600 text-2xl icon-pencil-square-o"></a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    <!-- More people... -->
+                                    </tbody>
+                                </table>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+  
                     </div>
                     <!--/container-->
                 </div>
