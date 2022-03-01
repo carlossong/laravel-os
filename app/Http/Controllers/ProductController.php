@@ -27,7 +27,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('product.create');
     }
 
     /**
@@ -38,7 +38,18 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $roles = [
+            'name' => 'required',
+            'price' => 'required',
+            'description' => 'required',
+        ];
+        $request->validate($roles);
+
+        $product = Product::create($request->all());
+        $product->fill($request->all());
+        $product->save();
+
+        return redirect(route('product.index'))->with('success', 'Produto Adicionado com Sucesso!');
     }
 
     /**

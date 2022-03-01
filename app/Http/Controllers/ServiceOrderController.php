@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Models\Service;
+use App\Models\Product;
 use App\Models\ServiceOrder;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -161,6 +162,24 @@ class ServiceOrderController extends Controller
             $client_id = Service::orderby('name','asc')->select('id','name','price')->limit(5)->get();
         }else{
             $client_id = Service::orderby('name','asc')->select('id','name','price')->where('name', 'like', '%' .$search . '%')->limit(5)->get();
+        }
+
+        $response = array();
+        foreach($client_id as $employee){
+            $response[] = array("value"=>$employee->id,"price"=>$employee->price,"label"=>$employee->name);
+        }
+
+        return response()->json($response);
+    }
+
+    public function searchProduct(Request $request){
+
+        $search = $request->search;
+
+        if($search == ''){
+            $client_id = Product::orderby('name','asc')->select('id','name','price')->limit(5)->get();
+        }else{
+            $client_id = Product::orderby('name','asc')->select('id','name','price')->where('name', 'like', '%' .$search . '%')->limit(5)->get();
         }
 
         $response = array();

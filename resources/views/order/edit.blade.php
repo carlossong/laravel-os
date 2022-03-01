@@ -26,6 +26,11 @@
                             </li>
                             <li @click="openTab = 3" :class="{ '-mb-px': openTab === 3 }" class="mr-1">
                                 <a :class="openTab === 3 ? activeClasses : inactiveClasses" class="bg-white inline-block py-2 px-4 font-semibold" href="#">
+                                    Produtos
+                                </a>
+                            </li>
+                            <li @click="openTab = 4" :class="{ '-mb-px': openTab === 4 }" class="mr-1">
+                                <a :class="openTab === 4 ? activeClasses : inactiveClasses" class="bg-white inline-block py-2 px-4 font-semibold" href="#">
                                     Detalhes
                                 </a>
                             </li>
@@ -151,13 +156,56 @@
                                     </div>
                                 </div>
                             </div>
+                            <div x-show="openTab === 3">
+
+                                <!--Produtos-->
+                                <div class="flex flex-wrap -mx-3 mb-6">
+
+                                    <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                                            Produto*
+                                        </label>
+                                        <input id="product_search" name="name" type="text" placeholder="Digite o nome do serviço" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                        <input type="text" name="product_id" id='service_id' hidden>
+                                    </div>
+                                    <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                                            Quantidade*
+                                        </label>
+                                        <input id="" type="text" name="qtd" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                    </div>
+                                    <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                                            Valor*
+                                        </label>
+                                        <input id="product_price" name="price" type="text" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                    </div>
+                                    <div class="w-full md:w-1/4 align-baseline">
+                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                                           <br>
+                                        </label>
+                                        <a href="#" class="icon-plus inline-flex items-center h-8 py-5 m-1 px-4 text-sm text-green-100 transition-colors duration-150 bg-green-700 rounded-lg focus:shadow-outline hover:bg-green-800">Adicionar</a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div x-show="openTab === 4">
+
+                                <!--Detalhes-->
+                                <div class="flex flex-wrap -mx-3 mb-6">
+                                    <p>Detalhes da Ordem de Serviço</p>
+                                </div>
+                                
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Script -->
+
+    <!-- Busca de Serviços -->
     <script type="text/javascript">
 
         // CSRF Token
@@ -191,4 +239,40 @@
 
         });
     </script>
+
+    <!-- Busca de Produtos -->
+    <script type="text/javascript">
+
+        // CSRF Token
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $(document).ready(function(){
+
+            $( "#product_search" ).autocomplete({
+                source: function( request, response ) {
+                    // Fetch data
+                    $.ajax({
+                        url:"{{route('search.product')}}",
+                        type: 'post',
+                        dataType: "json",
+                        data: {
+                            _token: CSRF_TOKEN,
+                            search: request.term
+                        },
+                        success: function( data ) {
+                            response( data );
+                        }
+                    });
+                },
+                select: function (event, ui) {
+                    // Set selection
+                    $('#product_search').val(ui.item.label);
+                    $('#product_price').val(ui.item.price);
+                    $('#product_id').val(ui.item.value);
+                    return false;
+                }
+            });
+
+        });
+    </script>
+
 </x-app-layout>

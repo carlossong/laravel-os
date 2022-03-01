@@ -30,6 +30,8 @@ Route::post('delete/{id}', [ServiceOrderController::class, 'delete'])->name('del
 
 Route::resource('client', ClientController::class)->middleware('auth');
 Route::resource('product', ProductController::class)->middleware('auth');
+Route::post('/product/search', [ServiceOrderController::class, 'searchProduct'])->name('search.product');
+
 Route::resource('service', ServiceController::class)->middleware('auth');
 Route::post('/service/search', [ServiceOrderController::class, 'searchService'])->name('search.service');
 
