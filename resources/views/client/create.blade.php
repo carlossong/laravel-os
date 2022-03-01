@@ -13,7 +13,7 @@
                     <div class="w-full mx-auto px-2">
                         <!--Card-->
                         <div id='recipients' class="w-full p-8 mt-6 lg:mt-0 rounded shadow bg-white">
-
+                            <h1 class="text-3xl font-bold text-gray-600 text-center py-4 mb-4">Cadastro Cliente</h1>
                             <form action="{{ route('client.store') }}" id="" method="post" class="w-full">
                                 @csrf
                                 <div class="w-full px-3 mb-6 md:mb-2">

@@ -15,6 +15,7 @@
                     <div class="w-full mx-auto px-2">
                         <!--Card-->
                         <div id='recipients' class="w-full p-8 mt-6 lg:mt-0 rounded shadow bg-white">
+                            <h1 class="text-3xl font-bold text-gray-600 text-center py-4 mb-4">Nova Ordem de Serviço</h1>
                             <form class="w-full" method="post" action="{{ route('order.store') }}">
                                 @csrf
                                 <div class="flex flex-wrap -mx-3 mb-6">

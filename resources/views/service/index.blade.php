@@ -12,39 +12,6 @@
                     <!--Container-->
                     <div class="w-full mx-auto px-2">
                         <a href="{{ route('service.create') }}" class="icon-plus inline-flex items-center h-8 px-4 m-2 text-sm text-green-100 transition-colors duration-150 bg-green-700 rounded-lg focus:shadow-outline hover:bg-green-800">Serviço</a>
-                        {{-- <!--Card-->
-                        <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
-
-
-                            <table id="example" class="stripe hover text-center" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
-                                <thead>
-                                <tr>
-                                    <th data-priority="1">Código</th>
-                                    <th data-priority="2">Nome</th>
-                                    <th data-priority="3">Descrição</th>
-                                    <th data-priority="4">Valor</th>
-                                    <th data-priority="5">Editar</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($services as $service)
-                                <tr>
-                                    <td>{{ $service->id }}</td>
-                                    <td>{{ $service->name }}</td>
-                                    <td>{{ $service->description }}</td>
-                                    <td>R$ {{ $service->price }}</td>
-                                    <td><a href="{{ route('service.edit', ['service' => $service->id]) }}" title="Editar" class="text-gray-600 text-2xl icon-pencil-square-o"></a></td>
-                                </tr>
-                                @endforeach
-                                </tbody>
-
-                            </table>
-
-
-                        </div>
-                        <!--/Card-->
- --}}
-                            <!-- This example requires Tailwind CSS v2.0+ -->
                         <div class="flex flex-col">
                             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">

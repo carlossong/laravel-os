@@ -12,36 +12,6 @@
                     <!--Container-->
                     <div class="w-full mx-auto px-2">
                         <a href="{{ route('client.create') }}" class="icon-plus inline-flex items-center h-8 px-4 m-2 text-sm text-green-100 transition-colors duration-150 bg-green-700 rounded-lg focus:shadow-outline hover:bg-green-800">Cliente</a>
-                        <!--Card-->
-                        {{-- <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
-                            <table id="clientes" class="stripe hover text-center" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
-                                <thead>
-                                <tr>
-                                    <th data-priority="1">Código</th>
-                                    <th data-priority="2">Nome</th>
-                                    <th data-priority="3">CPF/CNPJ</th>
-                                    <th data-priority="4">Telefone</th>
-                                    <th data-priority="5">E-Mail</th>
-                                    <th data-priority="5">Ações</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($clients as $client)
-                                <tr>
-                                    <td>#{{ $client->id }}</td>
-                                    <td>{{ $client->name }}</td>
-                                    <td>{{ $client->document }}</td>
-                                    <td>{{ $client->phone }}</td>
-                                    <td>{{ $client->email }}</td>
-                                    <td>
-                                        <a href="{{ route('client.edit', ['client' => $client->id]) }}" title="Editar" class="text-gray-600 text-2xl icon-pencil-square-o"></a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div> --}}
-                        <!--/Card-->
                         <div class="flex flex-col">
                             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
